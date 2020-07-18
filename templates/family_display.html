@@ -22,7 +22,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example" class="table table-bordered table-striped">
+                <table id="families_table" class="table table-bordered table-striped">
                   <thead>
                     <tr>
                       {% for th in theader %}
@@ -40,11 +40,10 @@
                         <td>{{ family.object_class }}</td>
                         <td>{{ family.vehicle_condition }}</td>
                         <td>
-{#                            <div class="text-center mt-52 mb-3">#}
-                                <input type="button" value="详情" class="btn btn-sm btn-info">
-                                <input type="button" value="编辑" class="btn btn-sm btn-info">
-                                <input type="button" value="删除" class="btn btn-sm btn-danger">
-{#                            </div>#}
+                            <form method="post" action="{% url 'family_details' %}">
+                                <input type="hidden" name="family_id" value="{{ family.id }}">
+                                <input type="submit" value="详情" class="btn btn-sm btn-info">
+                            </form>
                         </td>
                     </tr>
                   {% endfor %}
@@ -74,11 +73,7 @@
 
 <script>
   $(function () {
-    $("#example").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $('#example1').DataTable({
+    $('#families_table').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": true,

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_http_methods
 
-from CMS.models import Family
+from CMS.models import Family, Person
 
 
 @require_GET
@@ -45,3 +45,54 @@ def family_create(request):
         families = Family.objects.all()
         theader = Family.get_threader()
         return render(request, 'family_display.html', locals())
+
+
+@require_http_methods(['POST', 'GET'])
+def family_details(request):
+    if request.method == 'GET':
+        return render(request, 'family_details.html', locals())
+    else:
+        family_id = request.POST.get('family_id', None)
+        family = Family.objects.get(id=family_id)
+        theader = Person.get_threader()
+        family_member = Person.objects.filter(family_id=family_id)
+        return render(request, 'family_details.html', locals())
+
+
+@require_http_methods(['POST', 'GET'])
+def family_member_create(request):
+    if request.method == 'GET':
+        address = request.GET.get('address', None)
+        family = Family.objects.get(address=address)
+        return render(request, 'family_member_create.html', locals())
+    else:
+        address = request.POST.get('address', None)
+
+        appellation = request.POST.get('appellation', None)
+        name = request.POST.get('name', None)
+        domicile = request.POST.get('domicile', None)
+        work_units = request.POST.get('work_units', None)
+        id_number = request.POST.get('id_number', None)
+        income = request.POST.get('income', None)
+        social_security = request.POST.get('social_security', None)
+        political_landscape = request.POST.get('political_landscape', None)
+        health = request.POST.get('health', None)
+        phone_number = request.POST.get('phone_number', None)
+
+        person = Person.objects.create(family=Family.objects.get(address=address))
+        person.appellation = appellation
+        person.name = name
+        person.domicile = domicile
+        person.work_units = work_units
+        person.id_number = id_number
+        person.income = income
+        person.social_security = social_security
+        person.political_landscape = political_landscape
+        person.health = health
+        person.phone_number = phone_number
+        person.save()
+
+        theader = Person.get_threader()
+        family_member = Person.objects.filter(family__address=address)
+        family = Family.objects.get(address=address)
+        return render(request, 'family_details.html', locals())

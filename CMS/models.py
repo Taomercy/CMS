@@ -52,7 +52,7 @@ class Person(models.Model):
 
     @staticmethod
     def get_threader():
-        return ["姓名", "家庭地址", "联系电话", "身份证号"]
+        return ["称谓", "姓名", "户籍地", "工作单位", "身份证号", "收入情况", "社会保障", "政治面貌", "健康状况", "联系电话"]
 
     def __str__(self):
         return self.name

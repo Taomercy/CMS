@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+    <!-- Main content -->
+{% block content %}
+    <h1 align="center">家庭成员信息录入</h1>
+    <form action="{% url 'family_member_create' %}" method="post">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">家庭地址： {{ family.address }}</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+                <table id="family_details_table1" class="table-bordered table-striped" width="50%" style="float:left;">
+                    <tr>
+                        <th>称谓</th>
+                        <td><input name="appellation" type="text" id="inputName" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <th>姓名</th>
+                        <td><input name="name" type="text" id="inputName" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <th>户籍地</th>
+                        <td><input name="domicile" type="text" id="inputName" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <th>工作单位</th>
+                        <td><input name="work_units" type="text" id="inputName" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <th>身份证号</th>
+                        <td><input name="id_number" type="text" id="inputName" class="form-control"></td>
+                    </tr>
+                </table>
+
+                <table id="family_details_table1" class="table-bordered table-striped" width="50%" style="float:right;">
+                    <tr>
+                        <th>收入情况</th>
+                        <td><input name="income" type="text" id="inputName" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <th>社会保障</th>
+                        <td><input name="social_security" type="text" id="inputName" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <th>政治面貌</th>
+                        <td><input name="political_landscape" type="text" id="inputName" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <th>健康状况</th>
+                        <td><input name="health" type="text" id="inputName" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <th>联系电话</th>
+                        <td><input name="phone_number" type="text" id="inputName" class="form-control"></td>
+                    </tr>
+                </table>
+              <input type="hidden" name="address" value="{{ family.address }}">
+
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <a href="{% url 'family_display' %}" class="btn btn-secondary">取消</a>
+          <input type="submit" value="提交" class="btn btn-success float-right">
+        </div>
+      </div>
+    </form>
+{% endblock %}

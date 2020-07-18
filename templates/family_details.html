@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+  <title>users</title>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+            <!-- /.card -->
+
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">家庭情况表</h3>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <table id="family_details_table1" class="table-bordered table-striped" width="50%" style="float:left;">
+                        <tr>
+                            <th>家庭地址</th>
+                            <td>{{ family.address }}</td>
+                        </tr>
+                        <tr>
+                            <th>违章情况</th>
+                            <td>{{ family.illegal_situation }}</td>
+                        </tr>
+                        <tr>
+                            <th>商品房情况</th>
+                            <td>{{ family.commercial_housing_situation }}</td>
+                        </tr>
+                    </table>
+                    <table id="family_details_table2" class="table-bordered table-striped" width="50%" style="float:right;">
+                        <tr>
+                            <th>房屋出租情况</th>
+                            <td>{{ family.rental_status }}</td>
+                        </tr>
+                        <tr>
+                            <th>对象类别</th>
+                            <td>{{ family.object_class }}</td>
+                        </tr>
+                        <tr>
+                            <th>车辆情况</th>
+                            <td>{{ family.vehicle_condition }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+            <!-- /.card -->
+
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">人口情况表</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="families_table" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                {% for th in theader %}
+                                    <th>{{ th }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                      <tbody>
+                      {% for person in family_member %}
+                          <tr>
+                              <td>{{ person.appellation }}</td>
+                              <td>{{ person.name }}</td>
+                              <td>{{ person.domicile }}</td>
+                              <td>{{ person.work_units }}</td>
+                              <td>{{ person.id_number }}</td>
+                              <td>{{ person.income }}</td>
+                              <td>{{ person.social_security }}</td>
+                              <td>{{ person.political_landscape }}</td>
+                              <td>{{ person.health }}</td>
+                              <td>{{ person.phone_number }}</td>
+                          </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                    <form method="get" action="{% url 'family_member_create' %}">
+                        <input type="hidden" name="address" value="{{ family.address }}">
+                        <input type="submit" value="新增家庭成员" class="btn btn-sm btn-info">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
