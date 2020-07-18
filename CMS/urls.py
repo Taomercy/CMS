@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 
-from CMS.views import index
+from CMS.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$', index, name='index'),
+    re_path(r'^index2', index2, name='index2'),
 ]
