@@ -92,15 +92,33 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Data Source
+                表格总览
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="{% url 'family_display' %}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>家庭信息表</p>
+                </a>
+              </li>
+            </ul>
+
+             <ul class="nav nav-treeview">
+              <li class="nav-item">
                 <a href="{% url 'index' %}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Information Table</p>
+                  <p>人口情况表</p>
+                </a>
+              </li>
+            </ul>
+
+             <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'index' %}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>办事记录表</p>
                 </a>
               </li>
             </ul>

@@ -21,5 +21,9 @@ from CMS.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$', index, name='index'),
+
+    re_path(r'^family_display', family_display, name='family_display'),
+
+
     re_path(r'^index2', index2, name='index2'),
 ]
