@@ -17,7 +17,7 @@ def index2(request):
 @require_GET
 def family_display(request):
     families = Family.objects.all()
-    theader = Family.get_threader()
+    thead = Family.get_thread()
     return render(request, 'family_display.html', locals())
 
 
@@ -43,7 +43,7 @@ def family_create(request):
         family.save()
 
         families = Family.objects.all()
-        theader = Family.get_threader()
+        thead = Family.get_thread()
         return render(request, 'family_display.html', locals())
 
 
@@ -52,10 +52,10 @@ def family_details(request):
     if request.method == 'GET':
         return render(request, 'family_details.html', locals())
     else:
-        family_id = request.POST.get('family_id', None)
-        family = Family.objects.get(id=family_id)
-        theader = Person.get_threader()
-        family_member = Person.objects.filter(family_id=family_id)
+        address = request.POST.get('address', None)
+        family = Family.objects.get(address=address)
+        thead = Person.get_thread()
+        family_member = Person.objects.filter(family__address=address)
         return render(request, 'family_details.html', locals())
 
 
@@ -92,7 +92,15 @@ def family_member_create(request):
         person.phone_number = phone_number
         person.save()
 
-        theader = Person.get_threader()
+        thead = Person.get_thread()
         family_member = Person.objects.filter(family__address=address)
         family = Family.objects.get(address=address)
         return render(request, 'family_details.html', locals())
+
+
+@require_GET
+def person_display(request):
+    people = Person.objects.all()
+    thead = Person.get_simple_thead()
+    return render(request, 'person_display.html', locals())
+

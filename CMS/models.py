@@ -19,7 +19,7 @@ class Family(models.Model):
     vehicle_condition = models.TextField()
 
     @staticmethod
-    def get_threader():
+    def get_thread():
         return ["家庭地址", "违章情况", "商品房情况", "房屋出租情况", "对象类别", "车辆情况"]
 
     def __str__(self):
@@ -51,8 +51,12 @@ class Person(models.Model):
     phone_number = models.TextField()
 
     @staticmethod
-    def get_threader():
+    def get_thread():
         return ["称谓", "姓名", "户籍地", "工作单位", "身份证号", "收入情况", "社会保障", "政治面貌", "健康状况", "联系电话"]
+
+    @staticmethod
+    def get_simple_thead():
+        return ["姓名", "身份证号", "联系电话", "家庭地址"]
 
     def __str__(self):
         return self.name
@@ -67,7 +71,7 @@ class HandleAffairsRecord(models.Model):
     create_at = models.DateTimeField(auto_created=True)
 
     @staticmethod
-    def get_threader():
+    def get_thread():
         return ["时间", "事项", "经办人", ]
 
 

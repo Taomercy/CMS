@@ -18,11 +18,11 @@
 
         <div class="card">
               <div class="card-header">
-                <h3 class="card-title">家庭信息总览</h3>
+                <h3 class="card-title">人员信息表</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="families_table" class="table table-bordered table-striped">
+                <table id="people_table" class="table table-bordered table-striped">
                   <thead>
                     <tr>
                       {% for th in thead %}
@@ -32,18 +32,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                  {% for family in families %}
+                  {% for person in people %}
                     <tr>
-                        <td>{{ family.address }}</td>
-                        <td>{{ family.illegal_situation }}</td>
-                        <td>{{ family.commercial_housing_situation }}</td>
-                        <td>{{ family.rental_status }}</td>
-                        <td>{{ family.object_class }}</td>
-                        <td>{{ family.vehicle_condition }}</td>
+                        <td>{{ person.name }}</td>
+                        <td>{{ person.id_number }}</td>
+                        <td>{{ person.phone_number }}</td>
+                        <td>{{ person.family }}</td>
                         <td>
                             <form method="post" action="{% url 'family_details' %}">
-                                <input type="hidden" name="address" value="{{ family.address }}">
-                                <input type="submit" value="详情" class="btn btn-sm btn-info">
+                                <input type="hidden" name="address" value="{{ person.family }}">
+                                <input type="submit" value="家庭信息" class="btn btn-sm btn-info">
                             </form>
                         </td>
                     </tr>
@@ -74,7 +72,7 @@
 
 <script>
   $(function () {
-    $('#families_table').DataTable({
+    $('#people_table').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": true,
