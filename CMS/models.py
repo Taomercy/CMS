@@ -63,6 +63,8 @@ class Person(models.Model):
 
 
 class HandleAffairsRecord(models.Model):
+    # 居民
+    person = models.ForeignKey(Person, primary_key=False, blank=False, on_delete=PROTECT)
     # 事项
     event = models.TextField()
     # 经办人
@@ -72,7 +74,7 @@ class HandleAffairsRecord(models.Model):
 
     @staticmethod
     def get_thread():
-        return ["时间", "事项", "经办人", ]
+        return ["办理人", "事项", "经办人", "时间"]
 
 
 

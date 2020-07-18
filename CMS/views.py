@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_http_methods
 
-from CMS.models import Family, Person
+from CMS.models import Family, Person, HandleAffairsRecord
 
 
 @require_GET
@@ -17,7 +17,7 @@ def index2(request):
 @require_GET
 def family_display(request):
     families = Family.objects.all()
-    thead = Family.get_thread()
+    family_thead = Family.get_thread()
     return render(request, 'family_display.html', locals())
 
 
@@ -43,7 +43,7 @@ def family_create(request):
         family.save()
 
         families = Family.objects.all()
-        thead = Family.get_thread()
+        family_thead = Family.get_thread()
         return render(request, 'family_display.html', locals())
 
 
@@ -54,8 +54,11 @@ def family_details(request):
     else:
         address = request.POST.get('address', None)
         family = Family.objects.get(address=address)
-        thead = Person.get_thread()
+        people_thead = Person.get_thread()
         family_member = Person.objects.filter(family__address=address)
+
+        affairs = HandleAffairsRecord.objects.all()
+        affairs_thead = HandleAffairsRecord.get_thread()
         return render(request, 'family_details.html', locals())
 
 
@@ -92,7 +95,7 @@ def family_member_create(request):
         person.phone_number = phone_number
         person.save()
 
-        thead = Person.get_thread()
+        people_thead = Person.get_thread()
         family_member = Person.objects.filter(family__address=address)
         family = Family.objects.get(address=address)
         return render(request, 'family_details.html', locals())
@@ -101,6 +104,6 @@ def family_member_create(request):
 @require_GET
 def person_display(request):
     people = Person.objects.all()
-    thead = Person.get_simple_thead()
+    people_simple_thead = Person.get_simple_thead()
     return render(request, 'person_display.html', locals())
 

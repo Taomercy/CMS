@@ -67,7 +67,7 @@
                     <table id="families_table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                {% for th in thead %}
+                                {% for th in people_thead %}
                                     <th>{{ th }}</th>
                                 {% endfor %}
                             </tr>
@@ -92,6 +92,44 @@
                     <form method="get" action="{% url 'family_member_create' %}">
                         <input type="hidden" name="address" value="{{ family.address }}">
                         <input type="submit" value="新增家庭成员" class="btn btn-sm btn-info">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+            <!-- /.card -->
+
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">居民来居委会办事记录</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="families_table" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                {% for th in affairs_thead %}
+                                    <th>{{ th }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                      <tbody>
+                      {% for affair in affairs %}
+                          <tr>
+                              <td>{{ affair.person }}</td>
+                              <td>{{ affair.event }}</td>
+                              <td>{{ affair.agent }}</td>
+                              <td>{{ affair.create_at }}</td>
+                          </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                    <form method="get" action="{% url 'family_member_create' %}">
+                        <input type="hidden" name="address" value="{{ family.address }}">
+                        <input type="submit" value="新增办事记录" class="btn btn-sm btn-info">
                     </form>
                 </div>
             </div>
