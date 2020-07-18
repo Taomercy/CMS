@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+    <!-- Main content -->
+{% block content %}
+    <form action="{% url 'family_create' %}" method="post">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">家庭信息录入</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="inputName">家庭地址</label>
+                <input name="address" type="text" id="inputName" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label for="inputName">违章情况</label>
+                <input name="illegal_situation" type="text" id="inputName" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label for="inputName">商品房情况</label>
+                <input name="commercial_housing_situation" type="text" id="inputName" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label for="inputName">房屋出租情况</label>
+                <input name="rental_status" type="text" id="inputName" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label for="inputName">对象类别</label>
+                <input name="object_class" type="text" id="inputName" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label for="inputName">车辆情况</label>
+                <input name="vehicle_condition" type="text" id="inputName" class="form-control">
+              </div>
+
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <a href="{% url 'family_create' %}" class="btn btn-secondary">Cancel</a>
+          <input type="submit" value="提交" class="btn btn-success float-right">
+        </div>
+      </div>
+    </form>
+{% endblock %}
