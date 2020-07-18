@@ -132,4 +132,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
     # os.path.join(STATIC_ROOT, 'AdminLTE_3_0_5'),
     ("adminlte", os.path.join(STATIC_ROOT, 'theme')),
+    ("js", os.path.join(STATIC_ROOT, 'js')),
 ]

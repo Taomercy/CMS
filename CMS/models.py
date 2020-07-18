@@ -70,7 +70,7 @@ class HandleAffairsRecord(models.Model):
     # 经办人
     agent = models.TextField()
     # 时间
-    create_at = models.DateTimeField(auto_created=True)
+    create_at = models.DateTimeField(auto_now=True)
 
     @staticmethod
     def get_thread():

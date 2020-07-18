@@ -56,8 +56,7 @@ def family_details(request):
         family = Family.objects.get(address=address)
         people_thead = Person.get_thread()
         family_member = Person.objects.filter(family__address=address)
-
-        affairs = HandleAffairsRecord.objects.all()
+        affairs = HandleAffairsRecord.objects.filter(person__family__address=address)
         affairs_thead = HandleAffairsRecord.get_thread()
         return render(request, 'family_details.html', locals())
 
@@ -95,9 +94,11 @@ def family_member_create(request):
         person.phone_number = phone_number
         person.save()
 
+        family = Family.objects.get(address=address)
         people_thead = Person.get_thread()
         family_member = Person.objects.filter(family__address=address)
-        family = Family.objects.get(address=address)
+        affairs = HandleAffairsRecord.objects.filter(person__family__address=address)
+        affairs_thead = HandleAffairsRecord.get_thread()
         return render(request, 'family_details.html', locals())
 
 
@@ -107,3 +108,32 @@ def person_display(request):
     people_simple_thead = Person.get_simple_thead()
     return render(request, 'person_display.html', locals())
 
+
+@require_http_methods(['POST', 'GET'])
+def affair_create(request):
+    if request.method == 'GET':
+        address = request.GET.get('address', None)
+        family_member = Person.objects.filter(family__address=address)
+        return render(request, 'affair_create.html', locals())
+    else:
+        person = request.POST.get('person', None)
+        event = request.POST.get('event', None)
+        agent = request.POST.get('agent', None)
+
+        print("person:", person)
+        print("event:", event)
+        print("agent:", agent)
+        affair = HandleAffairsRecord.objects.create(
+            person=Person.objects.get(name=person),
+            event=event,
+            agent=agent
+        )
+        affair.save()
+
+        address = Person.objects.get(name=person).family
+        family = Family.objects.get(address=address)
+        people_thead = Person.get_thread()
+        family_member = Person.objects.filter(family__address=address)
+        affairs = HandleAffairsRecord.objects.filter(person__family__address=address)
+        affairs_thead = HandleAffairsRecord.get_thread()
+        return render(request, 'family_details.html', locals())

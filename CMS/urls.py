@@ -28,6 +28,7 @@ urlpatterns = [
     re_path(r'^family_member_create', family_member_create, name='family_member_create'),
 
     re_path(r'^person_display', person_display, name='person_display'),
+    re_path(r'^affair_create', affair_create, name='affair_create'),
 
 
     re_path(r'^index2', index2, name='index2'),

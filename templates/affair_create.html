@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+    <!-- Main content -->
+{% block content %}
+    <form action="{% url 'affair_create' %}" method="post">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">居民办事记录</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="inputName">办理人</label>
+                <select name="person" class="form-control custom-select">
+                    {% for member in family_member %}
+                        <option>{{ member.name }}</option>
+                    {% endfor %}
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="inputDescription">事项</label>
+                <textarea name="event" type="text" id="inputDescription" class="form-control" rows="4"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="inputName">经办人</label>
+                <input name="agent" type="text" id="inputName" class="form-control">
+              </div>
+
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <a href="{% url 'family_display' %}" class="btn btn-secondary">取消</a>
+          <input type="submit" value="提交" class="btn btn-success float-right">
+        </div>
+      </div>
+    </form>
+{% endblock %}
