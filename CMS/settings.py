@@ -131,8 +131,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
     # os.path.join(STATIC_ROOT, 'AdminLTE_3_0_5'),
-    ("adminlte", os.path.join(STATIC_ROOT, 'AdminLTE_3_0_5')),
-    ("img", os.path.join(STATIC_ROOT, 'datatables', 'images')),
-    ("js", os.path.join(STATIC_ROOT, 'js')),
-    ("fonts", os.path.join(STATIC_ROOT, 'datatables', 'fonts')),
+    ("adminlte", os.path.join(STATIC_ROOT, 'theme')),
 ]
