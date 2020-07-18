@@ -137,3 +137,10 @@ def affair_create(request):
         affairs = HandleAffairsRecord.objects.filter(person__family__address=address)
         affairs_thead = HandleAffairsRecord.get_thread()
         return render(request, 'family_details.html', locals())
+
+
+@require_GET
+def affairs_display(request):
+    affairs = HandleAffairsRecord.objects.all()
+    affairs_thead = HandleAffairsRecord.get_thread()
+    return render(request, 'affairs_display.html', locals())

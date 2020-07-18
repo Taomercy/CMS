@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+  <title>users</title>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+
+        <!-- /.card -->
+
+        <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">办事记录表</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="people_table" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      {% for th in affairs_thead %}
+                        <th>{{ th }}</th>
+                      {% endfor %}
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for affair in affairs %}
+                    <tr>
+                        <td>{{ affair.person }}</td>
+                        <td>{{ affair.event }}</td>
+                        <td>{{ affair.agent }}</td>
+                        <td>{{ affair.create_at }}</td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    </div>
+    <!-- /.content -->
+{% endblock %}
+
+
+{% block script %}
+    <!-- DataTables -->
+    <script src="{% static 'adminlte/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+
+<!-- page script -->
+
+<script>
+  $(function () {
+    $('#people_table').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+{% endblock %}
