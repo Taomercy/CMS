@@ -33,6 +33,7 @@
                   </thead>
                   <tbody>
                   {% for family in families_search %}
+                    {% if family.visible is True %}
                     <tr>
                         <td>{{ family.address }}</td>
                         <td>{{ family.illegal_situation }}</td>
@@ -47,6 +48,7 @@
                             </form>
                         </td>
                     </tr>
+                    {% endif %}
                   {% endfor %}
                   </tbody>
                 </table>
