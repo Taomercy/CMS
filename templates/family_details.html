@@ -57,7 +57,6 @@
         <div class="row">
             <div class="col-12">
             <!-- /.card -->
-
                 <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">人口情况表</h3>
@@ -89,10 +88,19 @@
                       {% endfor %}
                       </tbody>
                     </table>
-                    <form method="get" action="{% url 'family_member_create' %}">
+                    {% if message_for_member_invite %}
+                        <div class="alert alert-warning">{{ message_for_member_invite }}</div>
+                    {% endif %}
+                    <form method="get" action="{% url 'family_member_invite' %}" style="float:left">
                         <input type="hidden" name="address" value="{{ family.address }}">
-                        <input type="submit" value="新增家庭成员" class="btn btn-sm btn-info">
+                        <input type="submit" value="新增已注册家庭人员" class="btn btn-sm btn-info">
                     </form>
+
+                    <form method="get" action="{% url 'family_member_create' %}" style="float:right">
+                        <input type="hidden" name="address" value="{{ family.address }}">
+                        <input type="submit" value="新增未注册家庭人员" class="btn btn-sm btn-info">
+                    </form>
+
                 </div>
             </div>
         </div>

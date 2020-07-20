@@ -26,8 +26,11 @@ urlpatterns = [
     re_path(r'^family_create', family_create, name='family_create'),
     re_path(r'^family_details', family_details, name='family_details'),
     re_path(r'^family_member_create', family_member_create, name='family_member_create'),
+    re_path(r'^family_member_invite', family_member_invite, name='family_member_invite'),
 
     re_path(r'^person_display', person_display, name='person_display'),
+    re_path(r'^person_family_display', person_family_display, name='person_family_display'),
+
     re_path(r'^affair_create', affair_create, name='affair_create'),
     re_path(r'^affairs_display', affairs_display, name='affairs_display'),
 

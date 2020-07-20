@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block head %}
-  <title>Person Display</title>
+  <title>Family Display</title>
   <!-- DataTables -->
   <link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
   <link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
@@ -18,37 +18,38 @@
 
         <div class="card">
               <div class="card-header">
-                <h3 class="card-title">人员信息表</h3>
+                <h3 class="card-title">{{ person.name }} (id: {{ person.id_number }})   个人拥有房屋信息</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              {% if people %}
-                <table id="people_table" class="table table-bordered table-striped">
+                <table id="families_table" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                      {% for th in people_simple_thead %}
+                      {% for th in family_thead %}
                         <th>{{ th }}</th>
                       {% endfor %}
                         <th>详情</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {% for person in people %}
+                  {% for family in families_search %}
                     <tr>
-                        <td>{{ person.name }}</td>
-                        <td>{{ person.id_number }}</td>
-                        <td>{{ person.phone_number }}</td>
+                        <td>{{ family.address }}</td>
+                        <td>{{ family.illegal_situation }}</td>
+                        <td>{{ family.commercial_housing_situation }}</td>
+                        <td>{{ family.rental_status }}</td>
+                        <td>{{ family.object_class }}</td>
+                        <td>{{ family.vehicle_condition }}</td>
                         <td>
-                            <form method="get" action="{% url 'person_family_display' %}">
-                                <input type="hidden" name="id_number" value="{{ person.id_number }}">
-                                <input type="submit" value="家庭信息" class="btn btn-sm btn-info">
+                            <form method="post" action="{% url 'family_details' %}">
+                                <input type="hidden" name="address" value="{{ family.address }}">
+                                <input type="submit" value="详情" class="btn btn-sm btn-info">
                             </form>
                         </td>
                     </tr>
                   {% endfor %}
                   </tbody>
                 </table>
-              {% endif %}
               </div>
               <!-- /.card-body -->
             </div>
@@ -73,7 +74,7 @@
 
 <script>
   $(function () {
-    $('#people_table').DataTable({
+    $('#families_table').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": true,

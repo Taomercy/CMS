@@ -50,6 +50,10 @@
                   {% endfor %}
                   </tbody>
                 </table>
+
+                  <form method="get" action="{% url 'family_create' %}" style="float:left">
+                        <input type="submit" value="新建家庭信息" class="btn btn-sm btn-info">
+                  </form>
               </div>
               <!-- /.card-body -->
             </div>

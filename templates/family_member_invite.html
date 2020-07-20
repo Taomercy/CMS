@@ -13,7 +13,6 @@
     <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-
         <!-- /.card -->
 
         <div class="card">
@@ -22,7 +21,6 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              {% if people %}
                 <table id="people_table" class="table table-bordered table-striped">
                   <thead>
                     <tr>
@@ -39,16 +37,16 @@
                         <td>{{ person.id_number }}</td>
                         <td>{{ person.phone_number }}</td>
                         <td>
-                            <form method="get" action="{% url 'person_family_display' %}">
+                            <form method="post" action="{% url 'family_member_invite' %}">
+                                <input type="hidden" name="address" value="{{ family.address }}">
                                 <input type="hidden" name="id_number" value="{{ person.id_number }}">
-                                <input type="submit" value="家庭信息" class="btn btn-sm btn-info">
+                                <input type="submit" value="选择添加" class="btn btn-sm btn-info">
                             </form>
                         </td>
                     </tr>
                   {% endfor %}
                   </tbody>
                 </table>
-              {% endif %}
               </div>
               <!-- /.card-body -->
             </div>

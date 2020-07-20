@@ -18,6 +18,8 @@ class Family(models.Model):
     # 车辆情况
     vehicle_condition = models.TextField()
 
+    visible = models.BooleanField(default=True)
+
     @staticmethod
     def get_thread():
         return ["家庭地址", "违章情况", "商品房情况", "房屋出租情况", "对象类别", "车辆情况"]
@@ -34,7 +36,7 @@ class Person(models.Model):
     # 户籍地
     domicile = models.TextField()
     # 家庭地址
-    family = models.ForeignKey(Family, primary_key=False, blank=False, on_delete=PROTECT)
+    family = models.ManyToManyField(Family, through="PersonFamily")
     # 工作单位
     work_units = models.TextField()
     # 身份证号
@@ -50,21 +52,33 @@ class Person(models.Model):
     # 联系电话
     phone_number = models.TextField()
 
+    visible = models.BooleanField(default=True)
+
     @staticmethod
     def get_thread():
         return ["称谓", "姓名", "户籍地", "工作单位", "身份证号", "收入情况", "社会保障", "政治面貌", "健康状况", "联系电话"]
 
     @staticmethod
     def get_simple_thead():
-        return ["姓名", "身份证号", "联系电话", "家庭地址"]
+        return ["姓名", "身份证号", "联系电话"]
 
     def __str__(self):
         return self.name
 
 
+class PersonFamily(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    family = models.ForeignKey(Family, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = "person_family_relationship"
+
+
 class HandleAffairsRecord(models.Model):
     # 居民
     person = models.ForeignKey(Person, primary_key=False, blank=False, on_delete=PROTECT)
+    # 家庭
+    family = models.ForeignKey(Family, on_delete=models.CASCADE)
     # 事项
     event = models.TextField()
     # 经办人
