@@ -1,5 +1,5 @@
 FROM nginx
-EXPOSE 80 8000 8080
+EXPOSE 70 7000 7070 7001
 RUN rm -rf /etc/nginx/conf.d/*.conf
 ADD nginx.conf /etc/nginx/
 RUN mkdir -p /etc/nginx/sites-available/

@@ -1,5 +1,5 @@
 server {
-    listen         8099; 
+    listen         7070; 
     server_name    127.0.0.1 
     charset UTF-8;
     access_log      /var/log/nginx/web_access.log;
@@ -9,7 +9,7 @@ server {
 
     location / { 
         include uwsgi_params;                   # 通过uwsgi转发请求
-        uwsgi_pass 127.0.0.1:8000;              # 和上文配置的socket端口保持一致
+        uwsgi_pass 127.0.0.1:7000;              # 和上文配置的socket端口保持一致
         uwsgi_read_timeout 15;                  # 设置请求超时时间
     }   
     location /static {                          # 访问静态资源
