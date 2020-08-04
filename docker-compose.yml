@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: ./build/django/Dockerfile
+    ports:
+    - "8000:8000"
+    volumes:
+    - /home/CMS
+    command: python3 /home/CMS/manage.py runserver 0.0.0.0:8000
+
+  nginx:
+    build: ./build/nginx/
+    ports:
+    - "80:80"
+    - "8001:8001"
+    network_mode: "host"
+    volumes:
+    - ./CMS/static:/usr/share/nginx/html/static:ro
+    restart: always
