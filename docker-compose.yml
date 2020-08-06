@@ -22,9 +22,9 @@ services:
     - "7000:7000"
     volumes:
     - /home/CMS
-    links:
-    - db
-    depends_on:
-    - db
+#    links:
+#    - db
+#    depends_on:
+#    - db
     command: bash -c "python3 /home/CMS/manage.py migrate && python3 /home/CMS/manage.py runserver 0.0.0.0:7000"
     restart: always
