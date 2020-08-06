@@ -10,7 +10,9 @@ fi
 #docker stop ${web_container_id}
 
 pushd ${project_path}
-    git pull
+    cp db.sqlite3 ~
+    git reset --hard HEAD^ && git clean -xdf && git pull
+    cp ~/db.sqlite3 .
     docker cp ${project_path} ${web_container_id}:/home/
 popd
 
