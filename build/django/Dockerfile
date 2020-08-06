@@ -1,3 +1,4 @@
-FROM taomercy/ubuntu-python3.7.4-nginx-django3:v1
+FROM taomercy/ubuntu-python3.7.4-nginx-django3:latest
 COPY . /home/CMS/
-EXPOSE 80 7000
+RUN pip3 install -r /home/CMS/requirements.txt && apt-get install uwsgi -y
+EXPOSE 7000
