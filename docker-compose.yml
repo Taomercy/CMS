@@ -26,13 +26,3 @@ services:
     - db
     command: python3 /home/CMS/manage.py runserver 0.0.0.0:7000
     restart: always
-
-  nginx:
-    build: ./build/nginx/
-    ports:
-    - "70:70"
-    - "7001:7001"
-    network_mode: "host"
-    volumes:
-    - ./CMS/static:/usr/share/nginx/html/static:ro
-    restart: always
