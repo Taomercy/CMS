@@ -17,6 +17,8 @@ def get_time_format():
 
 def database_backup():
     repo = git.Repo(BACKUP_PATH)
+    origin = repo.remote('origin')
+    origin.pull()
     try:
         now = get_time_format()
         json_name = 'data_{}.json'.format(now)
@@ -38,8 +40,6 @@ def database_backup():
         repo.git.add(os.path.join(BACKUP_PATH, json_name))
         commit_msg = 'data backup %s' % now
         repo.index.commit(commit_msg, author=author, committer=committer)
-
-        origin = repo.remote('origin')
         origin.push()
 
         logging.info('backup end')
