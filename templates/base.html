@@ -44,28 +44,38 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{% url 'index' %}" class="nav-link">Home</a>
+        <a href="{% url 'index' %}" class="nav-link">主页</a>
       </li>
     </ul>
-
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="fas fa-th-list"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-item dropdown-header">系统管理</span>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item" id="backup_data">
+            <i class="fas fa-envelope mr-2"></i>数据备份
+          </a>
         </div>
-      </div>
-    </form>
+      </li>
+<!--      <li class="nav-item d-none d-sm-inline-block">-->
+<!--        <a href="#" class="nav-link">退出登录</a>-->
+<!--      </li>-->
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+          <i class="fas fa-th-large"></i>
+        </a>
+      </li>
+    </ul>
   </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index.html" class="brand-link">
+    <a href="#" class="brand-link">
       <img src="{% static 'adminlte/dist/img/AdminLTELogo.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">CMS</span>
@@ -139,12 +149,6 @@
                   <p>新建家庭信息</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{% url 'backup_manually' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>数据备份</p>
-                </a>
-              </li>
             </ul>
           </li>
         </ul>
@@ -162,7 +166,6 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
     <!-- Main content -->
 
     <section class="content">
@@ -222,6 +225,27 @@
 <script src="{% static 'adminlte/dist/js/adminlte.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'adminlte/dist/js/demo.js' %}"></script>
+
+<script>
+    $('#backup_data').click(function(){
+        if(confirm('你确定要备份嘛?')){
+            $.ajax({
+                type:'post',
+                traditional :true,
+                url:'{% url 'backup_manually' %}',
+                dataType: 'json',
+                success:function(data){
+                    if(data.status == 'success'){
+                        alert("备份成功");
+                    }else {
+                        alert("备份失败");
+                    }
+                }
+            });
+        }
+        return false;
+    });
+</script>
 {% block script %}
 
 {% endblock %}
