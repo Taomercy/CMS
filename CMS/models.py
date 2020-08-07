@@ -40,7 +40,7 @@ class Person(models.Model):
     # 工作单位
     work_units = models.TextField()
     # 身份证号
-    id_number = models.TextField(unique=True)
+    id_number = models.TextField(unique=True, max_length=20)
     # 收入情况
     income = models.TextField()
     # 社会保障

@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+#  db:
+#    image: mysql:5.7
+#    environment:
+#      - MYSQL_DATABASE=cms_database
+#      - MYSQL_PASSWORD=root
+#      - MYSQL_ROOT_PASSWORD=root
+#    ports:
+#    - "3306:3306"
+#    volumes:
+#      # 宿主机路径:容器内数据库数据文件路径
+#      - /home/root/docker_db:/var/lib/mysql  # 将宿主机与容器中的文件映射
+#    restart: always
+
+  web:
+    build: 
+      context: .
+      dockerfile: ./build/django/Dockerfile
+    ports:
+    - "7000:7000"
+    volumes:
+    - /home/CMS
+#    links:
+#    - db
+#    depends_on:
+#    - db
+    command: bash -c "python3 /home/CMS/manage.py migrate && python3 /home/CMS/manage.py runserver 0.0.0.0:7000"
+    restart: always
