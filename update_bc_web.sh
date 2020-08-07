@@ -9,7 +9,7 @@ pushd ${project_path}
     docker rmi ${image_id}
     git reset --hard HEAD^ && git clean -xdf && git pull
     mv ${HOME}/db.sqlite3 .
-    docker-compose up -d
+    docker-compose build && docker-compose up -d
 popd
 
 
