@@ -1,6 +1,7 @@
 #!/bin/bash
 project_path=/home/ec2-user/CMS
-mv ${project_path}/db.sqlite3 ${HOME}/db.sqlite3
+container_id=`docker ps -a | grep "cms_web" | awk '{print $1}'`
+docker cp ${container_id}:/home/CMS/db.sqlite3 ${HOME}
 
 pushd ${project_path}
     docker-compose down

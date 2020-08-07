@@ -32,16 +32,12 @@ def database_backup():
         if not os.path.isfile(json_name):
             return 1
 
-        shutil.move(json_name, BACKUP_PATH)
-        
-        sqlite_database = "db.sqlite3"
-        shutil.copy(sqlite_database, BACKUP_PATH)
+        shutil.move(json_name, BACKUP_PATH) 
 
         author = Actor("taomercy", "taomercy@qq.com")
         committer = Actor("taomercy", "taomercy@qq.com")
 
         repo.git.add(os.path.join(BACKUP_PATH, json_name))
-        repo.git.add(os.path.join(BACKUP_PATH, sqlite_database))
         commit_msg = 'data backup %s' % now
         repo.index.commit(commit_msg, author=author, committer=committer)
         origin.push()
