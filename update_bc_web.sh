@@ -1,25 +1,14 @@
 #!/bin/bash
 project_path=/home/ec2-user/CMS
-port=1112
-web_container_id=`docker ps -a | grep "cms_web" | awk '{print $1}'`
-if [[ ! -n ${web_container_id} ]];then
-    echo "no container"
-    exit 1
-fi
-
-#docker stop ${web_container_id}
+mv ${project_path}/db.sqlite3 ${HOME}/db.sqlite3
 
 pushd ${project_path}
-    cp db.sqlite3 ~
+    docker-compose down
+    image_id=`docker images | grep "cms_web" | awk '{print $3}'`
+    docker rmi ${image_id}
     git reset --hard HEAD^ && git clean -xdf && git pull
-    cp ~/db.sqlite3 .
-    docker cp ${project_path} ${web_container_id}:/home/
+    mv ${HOME}/db.sqlite3 .
+    docker-compose up -d
 popd
-
-#docker run -itd -p ${port}:${port} --net=host pythonbc_web:latest /bin/bash
-
-docker exec -d ${web_container_id} python3 /home/CMS/manage.py runserver 0.0.0.0:${port}
-
-docker ps -a | grep ${web_container_id}
 
 
