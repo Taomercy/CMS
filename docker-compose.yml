@@ -22,7 +22,6 @@ services:
     - "7000:7000"
     volumes:
     - /home/CMS
-    - /home/ec2-user/.ssh:/root/.ssh
 #    links:
 #    - db
 #    depends_on:
