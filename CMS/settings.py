@@ -154,7 +154,7 @@ if sysstr == "linux":
 elif sysstr == "Windows":
     HOME_PATH = os.environ['TEMP']
 else:
-    print("system:", sysstr)
+    HOME_PATH = os.path.dirname(BASE_DIR)
 
 BACKUP_PATH = os.path.join(HOME_PATH, "CMS_data_backup")
 backup_repository_url = 'git@github.com:Taomercy/CMS_data_backup.git'
