@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import platform
+
+import git
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -142,3 +146,19 @@ STATICFILES_DIRS = [
     ("adminlte", os.path.join(STATIC_ROOT, 'theme')),
     ("js", os.path.join(STATIC_ROOT, 'js')),
 ]
+
+sysstr = platform.system()
+HOME_PATH = ""
+if sysstr == "linux":
+    HOME_PATH = os.environ['HOME']
+elif sysstr == "Windows":
+    HOME_PATH = os.environ['TEMP']
+else:
+    print("system:", sysstr)
+
+BACKUP_PATH = os.path.join(HOME_PATH, "CMS_data_backup")
+backup_repository_url = 'git@github.com:Taomercy/CMS_data_backup.git'
+if not os.path.exists(BACKUP_PATH):
+    repo = git.Repo.clone_from(url=backup_repository_url, to_path=BACKUP_PATH)
+    origin = repo.remote('origin')
+

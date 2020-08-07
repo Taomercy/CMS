@@ -1,7 +1,15 @@
+import logging
+
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_http_methods
 
 from CMS.models import Family, Person, HandleAffairsRecord
+from CMS.scheduler import database_backup, BackupScheduler
+
+logger = logging.getLogger(__name__)
+backup_sche = BackupScheduler()
+backup_sche.scheduler_start()
 
 
 @require_GET
@@ -120,9 +128,6 @@ def affair_create(request):
         event = request.POST.get('event', None)
         agent = request.POST.get('agent', None)
 
-        print("person:", person)
-        print("event:", event)
-        print("agent:", agent)
         affair = HandleAffairsRecord.objects.create(
             person=Person.objects.get(name=person),
             event=event,
@@ -144,3 +149,9 @@ def affairs_display(request):
     affairs = HandleAffairsRecord.objects.all()
     affairs_thead = HandleAffairsRecord.get_thread()
     return render(request, 'affairs_display.html', locals())
+
+
+def backup_manually(request):
+    if database_backup():
+        return HttpResponse('{"status":"failed"}', content_type='application/json')
+    return HttpResponse('{"status":"success"}', content_type='application/json')

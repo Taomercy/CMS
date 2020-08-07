@@ -31,6 +31,7 @@ urlpatterns = [
     re_path(r'^affair_create', affair_create, name='affair_create'),
     re_path(r'^affairs_display', affairs_display, name='affairs_display'),
 
+    re_path(r'^backup_manually', backup_manually, name='backup_manually'),
 
     re_path(r'^index2', index2, name='index2'),
 ]
