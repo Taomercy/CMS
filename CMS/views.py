@@ -5,7 +5,6 @@ from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_http_methods
 
 from CMS.models import Family, Person, HandleAffairsRecord, PersonFamily
-from CMS.models import Family, Person, HandleAffairsRecord
 from CMS.scheduler import database_backup, BackupScheduler
 
 logger = logging.getLogger(__name__)
