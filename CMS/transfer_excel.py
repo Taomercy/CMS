@@ -3,6 +3,8 @@ import zipfile
 from openpyxl import load_workbook
 import xlrd
 
+from CMS.settings import HOME_PATH
+
 
 def zip_files(files, zip_name, output_path):
     zip = zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED)
@@ -24,7 +26,7 @@ def generator_excel(information, output_path):
     nrows = info_sheet.nrows
     for number in range(1, nrows):
         context = info_sheet.row_values(number)
-        template_workbook = load_workbook('402.xlsx')
+        template_workbook = load_workbook(os.path.join(HOME_PATH, '402.xlsx'))
         template_sheet = template_workbook['Sheet1']
 
         # 采集人信息
