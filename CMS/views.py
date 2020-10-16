@@ -227,7 +227,10 @@ def upload_file(request):
 
 def download_file(request):
     output_path = os.path.join(HOME_PATH, "tables")
-    shutil.rmtree(output_path)
+    try:
+        shutil.rmtree(output_path)
+    except:
+        pass
     zipfile = generator_excel(os.path.join(HOME_PATH, "information.xlsx"), output_path)
     the_file_name = open(zipfile, 'rb')
     response = FileResponse(the_file_name)
