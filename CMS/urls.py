@@ -41,4 +41,5 @@ urlpatterns = [
     re_path(r'^statistic_to_excel', statistic_to_excel, name='statistic_to_excel'),
     re_path(r'^upload_file', upload_file, name='upload_file'),
     re_path(r'^download_file', download_file, name='download_file'),
+    re_path(r'^download_information_template', download_information_template, name='download_information_template'),
 ]

@@ -237,3 +237,11 @@ def download_file(request):
     response['Content-Type'] = 'application/octet-stream'
     response['Content-Disposition'] = 'attachement;filename="{0}"'.format("result.zip")
     return response
+
+
+def download_information_template(request):
+    file_name = open(os.path.join(HOME_PATH, "template.xlsx"), 'rb')
+    response = FileResponse(file_name)
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = 'attachement;filename="{0}"'.format("information.xlsx")
+    return response

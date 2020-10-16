@@ -3,7 +3,10 @@
 
     <!-- Main content -->
 {% block content %}
-    <p>人口普查表格生成</p>
+    <h1>人口普查表格生成</h1>
+    <p>使用方法： 将信息写入名字为： information.xlsx  的excel文件中</p>
+    <p>然后上传information.xlsx, 之后会显示下载按钮</p>
+    <a href="{% url 'download_information_template' %}">information.xlsx 模板下载链接</a>
     {% if message_for_upload %}
         <div class="alert alert-warning">{{ message_for_upload }}</div>
     {% endif %}
