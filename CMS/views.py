@@ -1,11 +1,15 @@
 import logging
+import os
+import shutil
 
-from django.http import HttpResponse
+from django.http import HttpResponse, StreamingHttpResponse, FileResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_http_methods
 
 from CMS.models import Family, Person, HandleAffairsRecord, PersonFamily
 from CMS.scheduler import database_backup, BackupScheduler
+from CMS.settings import HOME_PATH
+from CMS.transfer_excel import generator_excel
 
 logger = logging.getLogger(__name__)
 backup_sche = BackupScheduler()
@@ -197,3 +201,36 @@ def backup_manually(request):
     if database_backup():
         return HttpResponse('{"status":"failed"}', content_type='application/json')
     return HttpResponse('{"status":"success"}', content_type='application/json')
+
+
+def statistic_to_excel(request):
+    if request.method == 'GET':
+        return render(request, 'statstic_to_excel.html', locals())
+
+
+def upload_file(request):
+    if request.method == 'POST':
+        try:
+            os.remove(os.path.join(HOME_PATH, "result.zip"))
+        except:
+            pass
+        myFile = request.FILES.get("myfile", None)
+        if not myFile:
+            return HttpResponse('no files for upload!')
+        save_name_with_path = os.path.join(HOME_PATH, myFile.name)
+        with open(save_name_with_path, 'wb+') as fw:
+            for c in myFile.chunks():
+                fw.write(c)
+        message_for_upload = "上传成功"
+        return render(request, 'statstic_to_excel.html', locals())
+
+
+def download_file(request):
+    output_path = os.path.join(HOME_PATH, "tables")
+    shutil.rmtree(output_path)
+    zipfile = generator_excel(os.path.join(HOME_PATH, "information.xlsx"), output_path)
+    the_file_name = open(zipfile, 'rb')
+    response = FileResponse(the_file_name)
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = 'attachement;filename="{0}"'.format("result.zip")
+    return response

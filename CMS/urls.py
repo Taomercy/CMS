@@ -37,4 +37,8 @@ urlpatterns = [
     re_path(r'^backup_manually', backup_manually, name='backup_manually'),
 
     re_path(r'^index2', index2, name='index2'),
+
+    re_path(r'^statistic_to_excel', statistic_to_excel, name='statistic_to_excel'),
+    re_path(r'^upload_file', upload_file, name='upload_file'),
+    re_path(r'^download_file', download_file, name='download_file'),
 ]

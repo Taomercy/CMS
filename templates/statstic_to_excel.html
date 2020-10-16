@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+    <!-- Main content -->
+{% block content %}
+    <p>人口普查表格生成</p>
+    {% if message_for_upload %}
+        <div class="alert alert-warning">{{ message_for_upload }}</div>
+    {% endif %}
+    {% if not message_for_upload %}
+    <div class="container-fluid">
+    <div class="row">
+    <form enctype="multipart/form-data" action="{% url 'upload_file' %}" method="post">
+        <input type="file" name="myfile"/>
+        <input type="submit" value="上传">
+    </form>
+    </div>
+    </div>
+    {% endif %}
+
+    {% if message_for_upload %}
+        <a href="{% url 'download_file' %}">
+            <button class="btn bg-info">下载结果</button>
+        </a>
+    {% endif %}
+{% endblock %}
