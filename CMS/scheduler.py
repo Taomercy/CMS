@@ -38,10 +38,12 @@ def database_backup():
         committer = Actor("taomercy", "taomercy@qq.com")
 
         repo.git.add(os.path.join(BACKUP_PATH, json_name))
-        commit_msg = 'data backup %s' % now
-        repo.index.commit(commit_msg, author=author, committer=committer)
-        origin.push()
-
+        if repo.index.diff('HEAD'):
+            commit_msg = 'data backup %s' % now
+            repo.index.commit(commit_msg, author=author, committer=committer)
+            origin.push()
+        else:
+            logging.info("no changes")
         logging.info('backup end')
         return 0
     except Exception as err:
